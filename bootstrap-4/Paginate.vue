@@ -2,16 +2,16 @@
     <nav aria-label="">
         <ul class="pagination">
             <li class="page-item" :class="{ 'disabled': paginate.current_page <= 1 }" v-if="isPrevPage">
-                <a class="page-link" href="javascript: void(0);" tabindex="-1" @click="fetch(paginate.prev_page_url)">{{
+                <a class="page-link" tabindex="-1" @click.prevent="fetch(paginate.prev_page_url)">{{
                     prevText}}</a>
             </li>
-            <li class="page-item"><a class="page-link" href="javascript: void(0);" v-if="isPrevPage" @click="fetch(paginate.path + '?page=' + prevPage)">{{ prevPage }}</a></li>
+            <li class="page-item"><a class="page-link" v-if="isPrevPage" @click.prevent="fetch(paginate.path + '?page=' + prevPage)">{{ prevPage }}</a></li>
             <li class="page-item active">
-                <a class="page-link" href="#">{{ paginate.current_page }} <span class="sr-only">(current)</span></a>
+                <a class="page-link" href="javascript:void(0);">{{ paginate.current_page }} <span class="sr-only">(current)</span></a>
             </li>
-            <li class="page-item"><a class="page-link" href="javascript: void(0);" v-if="isNextPage" @click="fetch(paginate.path + '?page=' + nextPage)">{{ nextPage }}</a></li>
+            <li class="page-item"><a class="page-link" v-if="isNextPage" @click.prevent="fetch(paginate.path + '?page=' + nextPage)">{{ nextPage }}</a></li>
             <li class="page-item" v-if="isNextPage">
-                <a class="page-link" href="javascript: void(0);" @click="fetch(paginate.next_page_url)">{{ nextText
+                <a class="page-link" @click.prevent="fetch(paginate.next_page_url)">{{ nextText
                     }}</a>
             </li>
         </ul>
