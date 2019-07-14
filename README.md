@@ -1,2 +1,2 @@
 # vuejs-components
-Collection of VueJS components based on bootstrap 4
+Collection of VueJS components. Personal collections.
