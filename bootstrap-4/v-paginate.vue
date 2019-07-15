@@ -64,25 +64,3 @@
         }
     }
 </script>
-
-Available Props:
-- prevText(string)
-- nextText(string)
-- paginate(object), laravel pagination instance
-
-Event Listener:
-- remote-call, parent component must pass in function's name for component able to call ajax request.
-
-E.g: 
-
-From child component will emit this event
-this.$emit('remote-call', url)
-
-From parent must passed in
-<pagination :paginate="paginate" v-on:remote-call="getData"></pagination>
-
-methods: {
-  getData(url) {
-      // call ajax request using axios or whatsoever
-  }
-}
