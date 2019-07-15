@@ -6,13 +6,13 @@ Create bootstrap 4 input element
 #### Props
 | Props        | Type        | Default Value| Description|
 |--------------|:------------|:-------------|:-----------|
-|input-type     | String      | row          | Decide which pattern want to use. Available values are `row` and `column`|
+|input-type    | String      | row          | Decide which pattern want to use. Available values are `row` and `column`|
 |type          | String      | text         | Decide what input want to create. Can be `email`, `date`, `text`, `password`, etc|
-|label         | String      | null         | **Required**. Input's label |
-|name          | String      | null         | Required if using traditional form instead of ajax operation|
-|input-value    | String      | null         | Pass this prop to set default value of input|
-|placeholder   | String      | null         | Input's placeholder|
-|value         | String      | null         | Pass in v-model to receive reactive input value|
+|label         | String      | Empty        | **Required**. Input's label |
+|name          | String      | Empty        | Required if using traditional form instead of ajax operation|
+|input-value   | String      | Empty        | Pass this prop to set default value of input|
+|placeholder   | String      | Empty        | Input's placeholder|
+|value         | String      | Empty        | Pass in v-model to receive reactive input value|
 
 ### Usage
 
@@ -43,7 +43,7 @@ Create bootstrap 4 laravel's pagination
 #### Methods
 | Method Name  | Description|
 |--------------|:------------|
-| fetch        | Internally used for emitting remote call|
+| fetch        | Internally used for emitting remote call. Emit along with `url` parameter to parent's method |
 
 #### Event Listener
 | Event Listener  | Description|
@@ -53,6 +53,18 @@ Create bootstrap 4 laravel's pagination
 ### Usage
 ```html
 <v-pagination :paginate="paginate" v-on:remote-call="getDataFromRemote"></v-pagination>
+```
+
+From Javascript
+```javascript
+// Inside parent component
+export default {
+    methods: {
+        getDataFromRemote(url) {
+            // axios.get(url)
+        }
+    }
+}
 ```
 
 Will render to following:
@@ -69,4 +81,51 @@ Will render to following:
     </ul>
 </nav>
 ```
- 
+
+## v-search
+Create search functionality. This component require input to be slot in by using available inputs `v-input`, `v-select`, `v-checkbox`, `v-radio`
+
+### Descriptions
+#### Props
+| Props          | Type        | Default Value| Description|
+|----------------|:------------|:-------------|:-----------|
+|btn-search-text |String       |Search        |Change default search's button|
+|action          |String       |Empty         |Url to redirect if click search button. Only for traditional form|
+|method          |String       |POST          |Available values are `POST`, `PUT`, `DELETE`, `PATCH`, `GET`. Only for traditional form|
+|type            |String       |traditional   |Available values are `traditional`, `ajax`|
+|form-data       |Object       |{}            |**Required**. `v-search` will look for this formData's object to populate input's values to form a query string parameter 
+
+#### Methods
+| Method Name  | Description|
+|--------------|:------------|
+| search       | Internally used for emitting remote call. Emit along with `queryString` parameter to parent's method|
+
+#### Event Listener
+| Event Listener  | Description|
+|-----------------|:------------|
+|remote-call      | Pass in method's name from parent component. `v-search` will trigger provided function from inside `search`'s method
+
+### Usage
+```html
+<search v-on:remote-call="getDataFromRemote" :form-data="formData" type="ajax">
+    <v-input label="Email" placeholder="Enter Email" v-model="formData.email"></v-input>
+</search>
+```
+From Javascript
+```javascript
+// Inside parent component
+export default {
+    data() {
+        return {
+            formData: {
+                email: ''
+            }
+        }
+    },
+    methods: {
+        getDataFromRemote(queryString) {
+            // 
+        }
+    }
+}
+```
